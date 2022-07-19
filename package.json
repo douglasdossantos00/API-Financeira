@@ -1,0 +1,34 @@
+{
+  "name": "xp",
+  "version": "1.0.0",
+  "description": "Este repositório foi criado para armazenamento do desafio técnico da XP, referente ao processo seletivo com os estudantes da Trybe.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglasdossantos00/Desafio-Tecnico-XP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/douglasdossantos00/Desafio-Tecnico-XP/issues"
+  },
+  "homepage": "https://github.com/douglasdossantos00/Desafio-Tecnico-XP#readme",
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "nodemon": "^2.0.19",
+    "sequelize-cli": "^6.4.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3"
+  }
+}
