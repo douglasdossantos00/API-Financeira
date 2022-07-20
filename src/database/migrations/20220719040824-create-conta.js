@@ -6,17 +6,13 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      },
-      saldo: {
-        type: Sequelize.DECIMAL(10, 2),
-      },
-      idCliente: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
         references: {
           model: 'Clientes',
           key: 'id',
         },
+      },
+      saldo: {
+        type: Sequelize.DECIMAL(10, 2),
       },
       createdAt: {
         allowNull: false,
