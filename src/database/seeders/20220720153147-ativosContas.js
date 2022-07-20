@@ -2,27 +2,27 @@ module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert('AtivosContas', [
       {
-        codAtivo: 'ITUB4',
+        idAtivo: 1,
         idConta: 1,
         qtdeAtivo: 100,
       },
       {
-        codAtivo: 'ITUB4',
+        idAtivo: 1,
         idConta: 2,
         qtdeAtivo: 100,
       },
       {
-        codAtivo: 'VALE3',
+        idAtivo: 2,
         idConta: 2,
         qtdeAtivo: 100,
       },
       {
-        codAtivo: 'ITUB4',
+        idAtivo: 1,
         idConta: 3,
         qtdeAtivo: 100,
       },
       {
-        codAtivo: 'PRIO3',
+        idAtivo: 2,
         idConta: 3,
         qtdeAtivo: 100,
       },

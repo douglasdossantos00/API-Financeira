@@ -1,16 +1,15 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Ativos', {
-      /* id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      }, */
+      },
       codAtivo: {
         type: Sequelize.STRING(10),
         allowNull: false,
-        primaryKey: true,
       },
       qtdeAtivo: {
         type: Sequelize.INTEGER,

@@ -8,7 +8,7 @@ const ClienteSchema = (sequelize, DataTypes) => {
   });
   ClienteTable.associate = (models) => {
     ClienteTable.hasOne(models.Conta, {
-      foreignKey: 'idConta',
+      foreignKey: 'id',
       as: 'conta',
     });
   };

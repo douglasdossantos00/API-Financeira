@@ -3,8 +3,12 @@ module.exports = {
     await queryInterface.createTable('Contas', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
+      idCliente: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Clientes',
@@ -27,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('Conta');
+    await queryInterface.dropTable('Contas');
   },
 };
