@@ -1,6 +1,6 @@
 module.exports = {
   async up(queryInterface) {
-    await queryInterface.bulkInsert('Clientes', [
+    await queryInterface.bulkInsert('Users', [
       {
         email: 'guilherme.benchimol@xp.com.br',
         senha: 'Xp1234',
@@ -17,6 +17,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Clientes', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   },
 };
