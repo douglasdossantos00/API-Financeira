@@ -4,9 +4,9 @@ const ContaSchema = (sequelize, DataTypes) => {
     saldo: DataTypes.DECIMAL(10, 2),
   }, { tableName: 'Contas' });
   ContaTable.associate = (models) => {
-    ContaTable.belongsTo(models.Cliente, {
-      foreignKey: 'idCliente',
-      as: 'cliente',
+    ContaTable.belongsTo(models.User, {
+      foreignKey: 'idUser',
+      as: 'user',
     });
   };
   return ContaTable;
