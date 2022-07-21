@@ -7,4 +7,6 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.listen(port, () => console.log('ouvindo porta', port));
+app.listen(port, async () => {
+  console.log('ouvindo porta', port);
+});
