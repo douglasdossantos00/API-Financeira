@@ -1,9 +1,20 @@
 const ativoService = require('../services/ativoService');
 
 const getAllAtivosController = async (request, response) => {
-  // const { email } = request.body;
   const allAtivos = await ativoService.getAllAtivosService();
   response.status(201).json(allAtivos);
 };
 
-module.exports = { getAllAtivosController };
+const getAllAtivosUserController = async (req, res) => {
+  const { codCliente } = req.params;
+  const allAtivosUser = await ativoService.getAllAtivosUserService(codCliente);
+  res.status(200).json(allAtivosUser);
+};
+
+const getAtivoByIdService = async (req, res) => {
+  const { codAtivo } = req.params;
+  const ativo = await ativoService.getAtivoByIdService(codAtivo);
+  res.status(200).json(ativo);
+};
+
+module.exports = { getAllAtivosController, getAllAtivosUserController, getAtivoByIdService };
