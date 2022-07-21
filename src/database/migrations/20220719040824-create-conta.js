@@ -7,11 +7,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      idCliente: {
+      idUser: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Clientes',
+          model: 'Users',
           key: 'id',
         },
       },
