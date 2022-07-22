@@ -23,7 +23,8 @@ const getAtivoContaByIdAtivo = async (idAtivo, idConta) => {
       qtdeAtivo: 0,
     },
   });
-  return ativoConta;
+  console.log('testeee', ativoConta[0].dataValues);
+  return ativoConta[0];
 };
 
 const postCompraAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
@@ -31,9 +32,8 @@ const postCompraAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
   const ativo = await getAtivoByIdService(codAtivo);
   const conta = await getContaService(codCliente);
   const custoAtivos = (+ativo.valor * qtdeAtivo);
-  console.log(ativo);
   if (ativo.qtdeAtivo < qtdeAtivo) {
-    throw new AppError('Quantidade indisponível', 404);
+    throw new AppError('Quantidade indisponível', 400);
   }
   if (conta.saldo < custoAtivos) {
     throw new AppError('Saldo insuficiente', 400);
