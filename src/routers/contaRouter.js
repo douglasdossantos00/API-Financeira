@@ -3,7 +3,7 @@ const contaController = require('../controllers/contaController');
 
 const contaRouter = Router();
 
-contaRouter.post('/deposito', contaController.postContaController);
-// contaRouter.post('/saque');
+contaRouter.post('/deposito', contaController.postDepositoContaController);
+contaRouter.post('/saque', contaController.postSaqueContaController);
 
 module.exports = contaRouter;

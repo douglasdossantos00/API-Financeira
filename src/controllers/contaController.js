@@ -1,9 +1,15 @@
 const contaService = require('../services/contaService');
 
-const postContaController = async (request, response) => {
-  // const { codCliente, valor } = request.body;
-  const updateConta = await contaService.getContaService();
-  response.status(200).json(updateConta);
+const postDepositoContaController = async (req, res) => {
+  const { codCliente, valor } = req.body;
+  await contaService.incrementContaService(codCliente, valor);
+  res.status(200).send();
 };
 
-module.exports = { postContaController };
+const postSaqueContaController = async (req, res) => {
+  const { codCliente, valor } = req.body;
+  await contaService.decrementContaService(codCliente, valor);
+  res.status(200).send();
+};
+
+module.exports = { postDepositoContaController, postSaqueContaController };
