@@ -20,7 +20,6 @@ const incrementContaService = async (codCliente, valor) => {
 
 const decrementContaService = async (codCliente, valor) => {
   const { idUser, saldo } = await getContaService(codCliente);
-  console.log(saldo);
   if (valor <= 0 || valor > saldo) {
     throw new AppError('Solicitação inválida');
   }
