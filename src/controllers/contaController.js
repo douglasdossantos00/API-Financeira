@@ -12,4 +12,10 @@ const postSaqueContaController = async (req, res) => {
   res.status(200).send();
 };
 
-module.exports = { postDepositoContaController, postSaqueContaController };
+const getContaController = async (req, res) => {
+  const { codCliente } = req.params;
+  const { id, saldo } = await contaService.getContaService(codCliente);
+  res.status(200).json({ id, saldo });
+};
+
+module.exports = { postDepositoContaController, postSaqueContaController, getContaController };
