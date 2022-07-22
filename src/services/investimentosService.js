@@ -23,7 +23,6 @@ const getAtivoContaByIdAtivo = async (idAtivo, idConta) => {
       qtdeAtivo: 0,
     },
   });
-  console.log('testeee', ativoConta[0].dataValues);
   return ativoConta[0];
 };
 
@@ -63,7 +62,7 @@ const postVenderAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
   const conta = await getContaService(codCliente);
   const ativoConta = await getAtivoContaByIdAtivo(codAtivo, conta.idUser);
   if (ativoConta.qtdeAtivo < qtdeAtivo) {
-    throw new AppError('Quantidade insuficiente');
+    throw new AppError('Quantidade maior que a disponível na carteira');
   }
 
   const custoAtivos = (+ativo.valor * qtdeAtivo);
