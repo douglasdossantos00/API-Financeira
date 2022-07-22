@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const AppError = require('../middleware/Error');
+require('dotenv').config();
 
 const TOKEN_SECRET = process.env.JWT_SECRET;
 
@@ -8,7 +9,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const generateJWTToken = (user) => jwt.sign({ user }, TOKEN_SECRET, jwtConfig);
+const generateJWTToken = (user) => jwt.sign(user, TOKEN_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {
