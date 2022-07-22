@@ -1,4 +1,5 @@
 const { Ativo, sequelize } = require('../database/models');
+const AppError = require('../middleware/Error');
 
 const getAllAtivosService = async () => {
   const allAtivos = await Ativo.findAll({
@@ -17,10 +18,13 @@ const getAllAtivosUserService = async (codCliente) => {
 };
 
 const getAtivoByIdService = async (codAtivo) => {
-  const findAtivo = await Ativo.findOne({
+  const ativo = await Ativo.findOne({
     where: { id: codAtivo },
     attributes: { exclude: ['createdAt', 'updatedAt'] },
   });
-  return findAtivo;
+  if (!ativo) {
+    throw new AppError('Ativo indisponível');
+  }
+  return ativo;
 };
 module.exports = { getAllAtivosService, getAllAtivosUserService, getAtivoByIdService };
