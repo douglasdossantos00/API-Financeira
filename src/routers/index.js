@@ -7,9 +7,9 @@ const contaRouter = require('./contaRouter');
 
 const router = Router();
 
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 router.use('/investimentos', investimentosRouter);
-router.use('/ativo', ativoRouter);
+router.use('/ativos', ativoRouter);
 router.use('/conta', contaRouter);
 
 module.exports = router;
