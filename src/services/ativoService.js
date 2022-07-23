@@ -14,6 +14,9 @@ const getAllAtivosUserService = async (codCliente) => {
   join desafio_xp_dev.Ativos as A on AC.idAtivo = A.id
   join desafio_xp_dev.Contas as C on AC.idConta = C.idUser
   where C.idUser = ${codCliente}`);
+  if (allAtivosUser[0].length === 0) {
+    throw new AppError('Não exite ativos para o usuário', 400);
+  }
   return allAtivosUser[0];
 };
 
