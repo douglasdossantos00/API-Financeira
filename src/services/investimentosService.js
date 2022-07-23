@@ -65,7 +65,7 @@ const postVenderAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
   const ativo = await getAtivoByIdService(codAtivo);
   const conta = await getContaService(codCliente);
   const ativoConta = await getAtivoContaByIdAtivo(codAtivo, conta.idUser);
-  if (ativoConta.qtdeAtivo < qtdeAtivo) {
+  if (!ativoConta || ativoConta.qtdeAtivo < qtdeAtivo) {
     throw new AppError('Quantidade maior que a disponível na carteira');
   }
 
