@@ -10,7 +10,7 @@ const getAllAtivosService = async () => {
 
 const getAllAtivosUserService = async (codCliente) => {
   const allAtivosUser = await sequelize.query(`SELECT C.idUser, A.id,
-  A.codAtivo, AC.qtdeAtivo, A.valor FROM desafio_xp_dev.AtivosContas as AC
+  A.codAtivo, A.valor, AC.qtdeAtivo, AC.qtdeAtivo * A.valor as ValorInvestido  FROM desafio_xp_dev.AtivosContas as AC
   join desafio_xp_dev.Ativos as A on AC.idAtivo = A.id
   join desafio_xp_dev.Contas as C on AC.idConta = C.idUser
   where C.idUser = ${codCliente}`);
