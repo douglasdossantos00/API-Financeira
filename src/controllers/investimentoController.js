@@ -7,13 +7,13 @@ const getAllAtivosContasController = async (request, response) => {
 
 const postCompraAtivoController = async (req, res) => {
   const { codCliente, codAtivo, qtdeAtivo } = req.body;
-  await ativoContaService.postCompraAtivoService(codCliente, codAtivo, qtdeAtivo);
-  res.status(200).send();
+  const ativos = await ativoContaService.postCompraAtivoService(codCliente, codAtivo, qtdeAtivo);
+  res.status(200).json(ativos);
 };
 const postvenderAtivoController = async (req, res) => {
   const { codCliente, codAtivo, qtdeAtivo } = req.body;
-  await ativoContaService.postVenderAtivoService(codCliente, codAtivo, qtdeAtivo);
-  res.status(200).send();
+  const ativos = await ativoContaService.postVenderAtivoService(codCliente, codAtivo, qtdeAtivo);
+  res.status(200).json(ativos);
 };
 
 module.exports = {

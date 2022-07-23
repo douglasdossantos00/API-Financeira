@@ -53,7 +53,11 @@ const postCompraAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
     { where: { id: ativo.id } },
     { transaction: t },
   );
-  return postCompraAtivoService;
+  const {
+    idAtivo, qtdeAtivo: qtdeAtivoAtualizada,
+  } = await getAtivoContaByIdAtivo(ativo.id, conta.idUser);
+
+  return { idAtivo, qtdeAtivoAtualizada };
 };
 
 const postVenderAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
@@ -81,7 +85,11 @@ const postVenderAtivoService = async (codCliente, codAtivo, qtdeAtivo) => {
     { where: { idAtivo: ativo.id, idConta: conta.idUser } },
     { transaction: t },
   );
-  return postVenderAtivoService;
+  const {
+    idAtivo, qtdeAtivo: qtdeAtivoAtualizada,
+  } = await getAtivoContaByIdAtivo(codCliente, conta.idUser);
+
+  return { idAtivo, qtdeAtivoAtualizada };
 };
 
 module.exports = { getAllAtivosContasService, postCompraAtivoService, postVenderAtivoService };
