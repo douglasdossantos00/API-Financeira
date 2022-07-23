@@ -14,8 +14,10 @@ const incrementContaService = async (codCliente, valor) => {
   if (valor <= 0) {
     throw new AppError('Quantidade a ser depositada não pode ser menor ou igual a zero');
   }
-  const findConta = await Conta.increment({ saldo: valor }, { where: { idUser } });
-  return findConta;
+  await Conta.increment({ saldo: valor }, { where: { idUser } });
+  const { dataValues } = await getContaService(codCliente);
+  const { id, saldo: saldoAtualizado } = dataValues;
+  return { id, saldoAtualizado };
 };
 
 const decrementContaService = async (codCliente, valor) => {
@@ -23,8 +25,10 @@ const decrementContaService = async (codCliente, valor) => {
   if (valor <= 0 || valor > saldo) {
     throw new AppError('Quantidade a ser sacada não pode ser maior que o saldo da conta e não pode ser menor ou igual a zero');
   }
-  const findConta = await Conta.increment({ saldo: -valor }, { where: { idUser } });
-  return findConta;
+  await Conta.increment({ saldo: -valor }, { where: { idUser } });
+  const { dataValues } = await getContaService(codCliente);
+  const { id, saldo: saldoAtualizado } = dataValues;
+  return { id, saldoAtualizado };
 };
 
 module.exports = { getContaService, incrementContaService, decrementContaService };
