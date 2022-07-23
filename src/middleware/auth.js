@@ -7,7 +7,7 @@ const authenticateMiddleware = async (request, _response, next) => {
   if (!data) {
     throw new AppError('Token not found', 401);
   }
-  request.user = JSON.parse(data.user); // os dados do usuario alocados no request
+  request.user = data; // os dados do usuario alocados no request
   next();
 };
 module.exports = authenticateMiddleware;
