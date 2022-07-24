@@ -7,6 +7,7 @@ const getAllAtivosContasController = async (request, response) => {
 
 const postCompraAtivoController = async (req, res) => {
   const { codCliente, codAtivo, qtdeAtivo } = req.body;
+  console.log(req.user);
   const ativos = await ativoContaService.postCompraAtivoService(codCliente, codAtivo, qtdeAtivo);
   res.status(200).json(ativos);
 };
