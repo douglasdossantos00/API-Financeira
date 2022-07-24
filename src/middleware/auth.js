@@ -3,11 +3,15 @@ const AppError = require('./Error');
 
 const authenticateMiddleware = async (request, _response, next) => {
   const token = request.headers.authorization;
-  const data = await authenticateToken(token);
-  if (!data) {
-    throw new AppError('Token not found', 401);
+  if (token === '' || !token) {
+    throw new AppError('Token não encontrado', 401);
   }
-  request.user = data; // os dados do usuario alocados no request
+  const tokenBearer = token.split(' ')[1];
+  const data = await authenticateToken(tokenBearer);
+  if (!data) {
+    throw new AppError('Token não encontrado', 401);
+  }
+  request.user = data; // os dados do usuario aloca
   next();
 };
 module.exports = authenticateMiddleware;
