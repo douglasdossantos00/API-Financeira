@@ -1,5 +1,6 @@
 const { Ativo, sequelize } = require('../database/models');
 const AppError = require('../middleware/Error');
+const contaService = require('./contaService');
 
 const getAllAtivosService = async () => {
   const allAtivos = await Ativo.findAll({
@@ -9,14 +10,15 @@ const getAllAtivosService = async () => {
 };
 
 const getAllAtivosUserService = async (codCliente) => {
+  const conta = await contaService.getContaService(codCliente);
+  if (!conta) {
+    throw new AppError('Conta não encontrada');
+  }
   const allAtivosUser = await sequelize.query(`SELECT C.idUser, A.id,
   A.codAtivo, A.valor, AC.qtdeAtivo, AC.qtdeAtivo * A.valor as ValorInvestido  FROM desafio_xp_dev.AtivosContas as AC
   join desafio_xp_dev.Ativos as A on AC.idAtivo = A.id
   join desafio_xp_dev.Contas as C on AC.idConta = C.idUser
   where C.idUser = ${codCliente}`);
-  if (allAtivosUser[0].length === 0) {
-    throw new AppError('Não exite ativos para o usuário', 400);
-  }
   return allAtivosUser[0];
 };
 
@@ -26,7 +28,7 @@ const getAtivoByIdService = async (codAtivo) => {
     attributes: { exclude: ['createdAt', 'updatedAt'] },
   });
   if (!ativo) {
-    throw new AppError('Ativo indisponível');
+    throw new AppError('Ativo indisponível', 404);
   }
   return ativo;
 };
