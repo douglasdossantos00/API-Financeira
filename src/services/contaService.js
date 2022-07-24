@@ -4,7 +4,7 @@ const AppError = require('../middleware/Error');
 const getContaService = async (codCliente) => {
   const getCliente = await Conta.findOne({ where: { idUser: codCliente } });
   if (!getCliente) {
-    throw new AppError('Conta não encontrada');
+    throw new AppError('Conta não encontrada', 404);
   }
   return getCliente;
 };
