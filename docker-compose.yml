@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  node:
+    image: node:16
+    build: .
+    user: node
+    working_dir: /app
+    volumes:
+      - ./:/app
+    container_name: desafio_xp
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      HOSTNAME: db
+      JWT_SECRET: secretJWT
+  db:
+    container_name: desafio_xp_db
+    image: mysql:8.0.21
+    ports:
+      - 3306:3306      
+    environment:
+      MYSQL_ROOT_PASSWORD: password

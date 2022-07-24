@@ -1,0 +1,593 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio Técnico XP",
+        "description": "Este projeto é uma API Rest para um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.",
+        "contact": {
+          "email":"douglasdosantos00@gmail.com"
+        },
+    "version": "1.0.0"    
+    },
+    "servers":[ {
+        "url": "http://localhost:3000/",
+        "description": "API de test"
+    }
+],
+    "paths": {
+        "/users": {
+            "post": {
+               "summary": "Login",
+               "description": "Essa rota faz o login da pessoa usuária e envia um chave token",
+               "tags": ["Users"],
+               "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/User"
+                        },
+                        "examples": {
+                            "login": {
+                                "value": {
+                                 "email": "douglas.santos@xp.com.br",
+                                 "senha": "Xp1234"
+                                }
+                            }
+                        }    
+                    }
+                }
+               },
+               "responses": {
+                "401": {
+                    "description": "Usuário não encontrado"
+                },
+                "201": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Token"
+                            },
+                            "examples": {
+                                "Token": {
+                                    "value":{
+                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJkb3VnbGFzLnNhbnRvc0B4cC5jb20uYnIiLCJpYXQiOjE2NTg2Mzc1NzMsImV4cCI6MTY1OTUwMTU3M30.RerUeravQEy1hlFiIkwXWOaTdcbBs1d4bnsZxKdwgsM"
+                                      }
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/ativos": {
+            "get": {
+               "summary": "Lista os ativos disponíveis",
+               "description": "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Ativos"],
+               "security": [{"bearerAuth":[]}],
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "400": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "types": "array",
+                                "$ref":"#/components/schemas/Ativos"
+                            },
+                            "examples": {
+                                "Ativos": {
+                                    "value": [
+                                        {
+                                        "id": 1,
+                                        "codAtivo": "ALPA4",
+                                        "qtdeAtivo": 100000,
+                                        "valor": "19.59"
+                                        },
+                                        {
+                                        "id": 2,
+                                        "codAtivo": "MRFG3",
+                                        "qtdeAtivo": 300000,
+                                        "valor": "12.65"
+                                        },
+                                        {
+                                        "id": 3,
+                                        "codAtivo": "EMBR3",
+                                        "qtdeAtivo": 1000,
+                                        "valor": "12.67"
+                                        },
+                                        {
+                                        "id": 4,
+                                        "codAtivo": "ITUB4",
+                                        "qtdeAtivo": 500000,
+                                        "valor": "23.38"
+                                        },
+                                        {
+                                        "id": 5,
+                                        "codAtivo": "PETR4",
+                                        "qtdeAtivo": 500,
+                                        "valor": "29.18"
+                                        }
+                                   ]
+                                }
+                            }                             
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/ativos/users/{codCliente}": {
+            "get": {
+               "summary": "Lista os ativos na base do usuário",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Ativos"],
+               "security": [{"bearerAuth":[]}],
+               "parameters": [
+                {
+                    "name": "codCliente",
+                    "in": "path",
+                    "description": "O código do cliente deve ser informado para trazer as informações referentes aos seus ativos em conta",
+                    "require": true
+                }
+               ],
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "400": {
+                    "description": "Ativo indisponível"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "types": "array",
+                                "$ref":"#/components/schemas/Ativos"
+                            },
+                            "examples": {
+                                "Ativos": {
+                                    "value": [
+                                        {
+                                        "id": 1,
+                                        "codAtivo": "ALPA4",
+                                        "valor": "19.59",
+                                        "qtdeAtivo": 100000,                                        
+                                        "ValorInvestido": "1959.00"
+                                        },
+                                        {
+                                            "idUser": 3,
+                                            "id": 2,
+                                            "codAtivo": "MRFG3",
+                                            "valor": "12.65",
+                                            "qtdeAtivo": 100,
+                                            "ValorInvestido": "1265.00"
+                                        }     
+                                    ]             
+                                }
+                            }                             
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+      
+        "/ativos/{codAtivo}": {
+            "get": {
+               "summary": "Lista o ativo pelo id do ativo",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Ativos"],
+               "security": [{"bearerAuth":[]}],
+               "parameters": [
+                {
+                    "name": "codAtivo",
+                    "in": "path",
+                    "description": "O código do ativo é informado para trazer as informações do ativo",
+                    "require": true
+                }
+               ],
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "400": {
+                    "description": "Ativo indisponível"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "types": "object",
+                                "$ref":"#/components/schemas/Ativos"
+                            },
+                            "examples": {
+                                "Ativos": {
+                                    "value": 
+                                        {
+                                        "id": 1,
+                                        "codAtivo": "ALPA4",
+                                        "valor": "19.59",
+                                        "qtdeAtivo": 100000,                                        
+                                        "ValorInvestido": "1959.00"
+                                        }              
+                                }
+                            }                             
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/conta/{codCliente}": {
+            "get": {
+               "summary": "Lista a conta do usuário",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Contas"], 
+               "security": [{"bearerAuth":[]}],             
+               "parameters": [
+                {
+                    "name": "codCliente",
+                    "in": "path",
+                    "description": "O código do cliente é informado para trazer as informação da sua respectiva conta",
+                    "require": true
+                }
+               ],
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "404": {
+                    "description": "Conta não encontrada"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "types": "object",
+                                "$ref":"#/components/schemas/Conta"
+                            },
+                            "examples": {
+                                "Contas": {
+                                    "value": 
+                                        {
+                                        "id": 1,                                        
+                                        "Saldo": "10000.00"
+                                        }                               
+                                        
+                                   
+                                }
+                            }                             
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/conta/saque": {
+            "post": {
+               "summary": "Faz um saque na conta",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Contas"],
+               "security": [{"bearerAuth":[]}],
+               "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/Conta"
+                        },
+                        "examples": {
+                            "login": {
+                                "value": {
+                                    "codCliente": 3,
+                                    "valor": 500
+                                }
+                            }
+                        }    
+                    }
+                }
+               },
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "404": {
+                    "description": "Conta não encontrada"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Conta"
+                            },
+                            "examples": {
+                                "Token": {
+                                    "value": {
+                                        "id": 1,
+                                        "saldoAtualizado": "116269.16"                               
+                                    }
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/conta/deposito": {
+            "post": {
+               "summary": "Faz um deposito na conta",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Contas"],
+               "security": [{"bearerAuth":[]}],
+               "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/Conta"
+                        },
+                        "examples": {
+                            "login": {
+                                "value": {
+                                    "codCliente": 3,
+                                    "valor": 500
+                                }
+                            }
+                        }    
+                    }
+                }
+               },
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "404": {
+                    "description": "Conta não encontrada"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Conta"
+                            },
+                            "examples": {
+                                "Token": {
+                                    "value": {
+                                        "id": 1,
+                                        "saldoAtualizado": "1500.16"                               
+                                    }
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/investimentos/comprar": {
+            "post": {
+               "summary": "Faz a compra do ativo",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Investimentos"],
+               "security": [{"bearerAuth":[]}],
+               "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/Investimentos"
+                        },
+                        "examples": {
+                            "login": {
+                                "value": {
+                                    "codCliente": 3,
+                                    "codAtivo": 3,
+                                    "qtdeAtivo": 10
+                                }
+                            }
+                        }    
+                    }
+                }
+               },
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "404": {
+                    "description": "Conta não encontrada"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Investimentos"
+                            },
+                            "examples": {
+                                "Investimentos compra": {
+                                    "value": {
+                                        "idAtivo": 3,
+                                        "qtdeAtivoAtualizada": 986                            
+                                    }
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+               }
+            }
+        },
+        "/investimentos/vender": {
+            "post": {
+               "summary": "Faz a venda do ativo",
+               "description":  "É necessário estar autenticado nessa rota, caso seu token tenha expirado ou seja inválido, volte até a rota users gere o token e faça a liberação na guia Authorize no inicio da página",
+               "tags": ["Investimentos"],
+               "security": [{"bearerAuth":[]}],
+               "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/Investimentos"
+                        },
+                        "examples": {
+                            "login": {
+                                "value": {
+                                    "codCliente": 3,
+                                    "codAtivo": 3,
+                                    "qtdeAtivo": 10
+                                }
+                            }
+                        }    
+                    }
+                }
+               },
+               "responses": {
+                "500": {
+                    "description": "Internal Server Error"
+                },
+                "401": {
+                    "description": "Token expirado ou não é válido"
+                },
+                "404": {
+                    "description": "Conta não encontrada"
+                },
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Investimentos"
+                            },
+                            "examples": {
+                                "Investimentos venda": {
+                                    "value": {
+                                        "idAtivo": 3,
+                                        "qtdeAtivoAtualizada": 986                            
+                                    }
+                                }
+                            }    
+                        }
+                        
+                    }
+                }
+               }
+            }
+        }        
+           
+       
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Token": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    }                   
+                }
+            },
+            "Ativos": {
+                "type": "array",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "codAtivo": {
+                        "type": "string"
+                    },
+                    "valor": {
+                        "type": "decimal"
+                    },
+                    "qtdeAtivo": {
+                        "type": "integer"
+                    },                   
+                    "valorInvestido": {
+                        "type": "decimal"
+                    }
+                }
+            },
+            "Conta": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    
+                    "valor": {
+                        "type": "decimal"
+                    }
+                }
+            },
+            "Investimentos": {
+                "type": "object",
+                "properties": {
+                    "codCliente": {
+                        "type": "integer"
+                    },
+                    "codAtivo": {
+                        "type": "integer"
+                    },                    
+                    "qtdeAtivo": {
+                        "type": "integer"
+                    }
+                }
+            }
+            
+            
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http", 
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
