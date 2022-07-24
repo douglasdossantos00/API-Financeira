@@ -2,7 +2,7 @@ const ativoService = require('../services/ativoService');
 
 const getAllAtivosController = async (request, response) => {
   const allAtivos = await ativoService.getAllAtivosService();
-  response.status(201).json(allAtivos);
+  response.status(200).json(allAtivos);
 };
 
 const getAllAtivosUserController = async (req, res) => {
