@@ -3,6 +3,15 @@
 ## Contexto
 Este projeto é uma API Rest para um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.
 
+## Metodologia aplicada no desafio.
+
+Após análise do projeto, optei por trabalhar com a linguagem *JavaScript*, o banco de dados *MySql* e ORM *Sequelize*, este último, para agilizar o acesso aos dados, mesmo tendo feito apenas um projeto com o uso da ORM, o desafio me deu alento para aprender mais sobre ORM, como dados é a base da informação, ter acesso a maior quantidade com um menor tempo é uma ótima vantagem.  
+Elaborei um mapa mental utilizando a plataforma de colaboração visual *Miro*, para ter uma visão macro da funcionalidade da API, e assim conseguir partir para o próximo passo que foi o modelamento das tabelas e suas associações.
+Criei três tabelas, optei por relacionar a conta com o ativo, para tentar reduzir ao máximo o número de tabelas.  
+Dei inicio a programação, foi meu primeiro projeto literalmente do zero, pois nos projetos da Trybe boa parte das dependências já vem predefinidas, e com um simples comando install elas estão prontas, foi aí meu primeiro percalço. Depois de configurado e instalado as dependências, a conexão com o banco de dados e o *Sequelize* me tomou algum tempo, mas procurando informações, lendo documentação e vendo alguns vídeos pude avançar até o relacionamento das tabelas, foi outro ponto de aprendizado.  
+A parte lógica fluiu bem, até que necessitei fazer uma solicitação ao banco de dados com uma função do *Sequelize* e não conseguia trazer o que queria ao consultar as tabelas associadas, foi necessário uma nova busca de aprendizado consultando a documentação. Assim, foi possível encontrar uma alternativa sem alterar a lógica.  
+Usei o *Swagger* para documentar a API, trazendo as informações e possibilitando testar a usuabilidade.
+
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
