@@ -19,7 +19,7 @@ const getUserService = async (email, senha) => {
 
   const token = generateJWTToken.generateJWTToken(user.dataValues);
 
-  return { status: 201, token };
+  return { token };
 };
 
 module.exports = { getUserService };
