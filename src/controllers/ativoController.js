@@ -11,10 +11,10 @@ const getAllAtivosUserController = async (req, res) => {
   res.status(200).json(allAtivosUser);
 };
 
-const getAtivoByIdService = async (req, res) => {
+const getAtivoByIdController = async (req, res) => {
   const { codAtivo } = req.params;
   const ativo = await ativoService.getAtivoByIdService(codAtivo);
   res.status(200).json(ativo);
 };
 
-module.exports = { getAllAtivosController, getAllAtivosUserController, getAtivoByIdService };
+module.exports = { getAllAtivosController, getAllAtivosUserController, getAtivoByIdController };
