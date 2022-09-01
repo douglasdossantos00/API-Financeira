@@ -54,7 +54,7 @@ $ npx sequelize db:migrate
 $ npx sequelize db:seed:all
 
 # Execute a aplicação
-$ npm run debug
+$ npm run start
 
 
 O servidor inciará na porta:3000 - acesse <http://localhost:3000>               
