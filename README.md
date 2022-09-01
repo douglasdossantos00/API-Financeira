@@ -1,4 +1,4 @@
-# Desafio-Técnico-XP
+# API Finaceira
 
 ## Contexto
 Este projeto é uma API Rest para um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.
