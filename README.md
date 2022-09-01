@@ -57,10 +57,11 @@ $ npx sequelize db:seed:all
 $ npm run debug
 
 
-# O servidor inciará na porta:3000 - acesse <http://localhost:3000>
-# A documentação com usubilidade no link - <http://localhost:3000/api-docs>
-# Para acesso externo a API está disponível - <https://api-financeira-001.herokuapp.com/api-docs/>
+O servidor inciará na porta:3000 - acesse <http://localhost:3000>               
+A documentação com usubilidade no link - <http://localhost:3000/api-docs>  
 ```
+Para acesso externo a API está disponível - [https://api-financeira-001.herokuapp.com/api-docs/](https://api-financeira-001.herokuapp.com/api-docs/)
+
 
 
 
